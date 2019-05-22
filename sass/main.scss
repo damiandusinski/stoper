@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  .wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .stopwatch-box {
+      text-align: center;
+      h1,
+      h2 {
+        text-transform: uppercase;
+      }
+      h2 {
+        padding: 10px;
+      }
+      p {
+        font-size: 40px;
+        padding: 20px;
+      }
+
+      .btn-wrapper {
+        display: flex;
+        justify-content: space-around;
+        .btn {
+          display: none;
+          text-transform: uppercase;
+          padding: 10px 20px;
+          background-color: greenyellow;
+          border: 2px solid black;
+          border-radius: 5px;
+          cursor: pointer;
+          &.show {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
