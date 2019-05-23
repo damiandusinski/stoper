@@ -1,7 +1,11 @@
 // box for min and ms
 const minBox = document.querySelector(".stopwatch span");
 const msBox = document.querySelector(".stopwatch span:last-child");
+const stopwatchHistory = document.querySelector(".stopwatch-history");
+const fu = document.querySelector(".fu");
+let rot = 0;
 
+fu.style.color = "red";
 // all buttons and eventListenener
 const start = document.querySelector(".btn-start");
 start.addEventListener("click", () => {
@@ -12,9 +16,9 @@ pause.addEventListener("click", () => {
   newStopWatch.pauseStopwatch();
 });
 const add = document.querySelector(".btn-add");
-// add.addEventListener("click", () => {
-//   newStopWatch.pauseStopwatch();
-// });
+add.addEventListener("click", () => {
+  newStopWatch.addTime();
+});
 const clear = document.querySelector(".btn-clear");
 clear.addEventListener("click", () => {
   newStopWatch.clearStopwatch();
@@ -64,6 +68,11 @@ class Stopwatch {
       add.classList.add("show");
       this.flag = !this.flag;
       this.index = setInterval(() => {
+        rot += 2;
+        fu.style.transform = "rotate(" + rot + "deg)";
+        if (rot >= 360) {
+          rot = 0;
+        }
         ms += 1 / 100;
         if (ms >= 60) {
           this.setMin(this.getMin() + 1);
@@ -96,9 +105,45 @@ class Stopwatch {
     this.setMin(0);
     minBox.textContent = "00";
     msBox.textContent = "00";
+    newHistory.getHistory().splice(0, 5);
+    stopwatchHistory.textContent = "";
     clear.classList.remove("show");
+    rot = 0;
+    fu.style.transform = "rotate(" + rot + "deg)";
+  }
+
+  addTime() {
+    const timeToHistory = `${this.getMin()}:${this.getMs()}`;
+    newHistory.setHistory(timeToHistory);
+    if (newHistory.getHistory().length === 6) {
+      newHistory.getHistory().pop();
+    }
+    newHistory.render();
+  }
+}
+
+class History {
+  constructor() {
+    let _history = [];
+
+    this.setHistory = time => {
+      _history.unshift(time);
+    };
+    this.getHistory = () => _history;
+  }
+
+  render() {
+    stopwatchHistory.textContent = "";
+    const ol = document.createElement("ol");
+    stopwatchHistory.appendChild(ol);
+    this.getHistory().forEach(index => {
+      const li = document.createElement("li");
+      li.textContent = index;
+      ol.appendChild(li);
+    });
   }
 }
 
 // Create new Stopwatch
 let newStopWatch = new Stopwatch();
+let newHistory = new History();
