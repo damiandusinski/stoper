@@ -1,3 +1,25 @@
+// box for min and ms
+const minBox = document.querySelector(".stopwatch span");
+const msBox = document.querySelector(".stopwatch span:last-child");
+
+// all buttons and eventListenener
+const start = document.querySelector(".btn-start");
+start.addEventListener("click", () => {
+  newStopWatch.startStopwatch();
+});
+const pause = document.querySelector(".btn-pause");
+pause.addEventListener("click", () => {
+  newStopWatch.pauseStopwatch();
+});
+const add = document.querySelector(".btn-add");
+// add.addEventListener("click", () => {
+//   newStopWatch.pauseStopwatch();
+// });
+const clear = document.querySelector(".btn-clear");
+clear.addEventListener("click", () => {
+  newStopWatch.clearStopwatch();
+});
+// Class
 class Stopwatch {
   constructor() {
     let _time = 0;
@@ -77,24 +99,6 @@ class Stopwatch {
     clear.classList.remove("show");
   }
 }
+
+// Create new Stopwatch
 let newStopWatch = new Stopwatch();
-
-const start = document.querySelector(".btn-start");
-start.addEventListener("click", () => {
-  newStopWatch.startStopwatch();
-});
-const pause = document.querySelector(".btn-pause");
-pause.addEventListener("click", () => {
-  newStopWatch.pauseStopwatch();
-});
-const add = document.querySelector(".btn-add");
-// add.addEventListener("click", () => {
-//   newStopWatch.pauseStopwatch();
-// });
-const clear = document.querySelector(".btn-clear");
-clear.addEventListener("click", () => {
-  newStopWatch.clearStopwatch();
-});
-
-const minBox = document.querySelector(".stopwatch span");
-const msBox = document.querySelector(".stopwatch span:last-child");
